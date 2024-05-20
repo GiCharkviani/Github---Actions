@@ -1,0 +1,33 @@
+name: Deploy Project
+on: push
+jobs:
+  UnitTests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci #installs only versions that are locked in lock.json
+      - name: Run tests
+        run: npm test
+  DeployApp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci #installs only versions that are locked in lock.json
+      - name: Build project
+        run: npm run build
+      - name: Deploy
+        run: echo "Deploying..."
+
+
